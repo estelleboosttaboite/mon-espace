@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mon espace — 15 jours</title>
+<style>
+:root{--bg:#faf7f2;--card:#fff;--tx:#2b2b2b;--mu:#7a746b;--ac:#c27a5a;--ac2:#efdfd3;--bd:#e6ded3;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1c1a18;--card:#262321;--tx:#f0ebe4;--mu:#a39b90;--ac:#e09a7a;--ac2:#4a3a32;--bd:#3a3531}}
+:root[data-theme="dark"]{--bg:#1c1a18;--card:#262321;--tx:#f0ebe4;--mu:#a39b90;--ac:#e09a7a;--ac2:#4a3a32;--bd:#3a3531}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.45}
+main{max-width:760px;margin:0 auto;padding:14px}
+h1{font-size:1.3rem;margin:6px 0}h2{font-size:1rem;margin:0 0 8px;color:var(--ac)}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px;margin:12px 0}
+.bar{height:8px;background:var(--ac2);border-radius:8px;overflow:hidden}.bar i{display:block;height:100%;background:var(--ac)}
+.row{display:flex;gap:6px;overflow-x:auto;padding:6px 0;flex-wrap:nowrap}.wr{flex-wrap:wrap;overflow:visible}
+button{font:inherit;color:var(--tx);background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:8px 10px;flex:0 0 auto}
+button.on{background:var(--ac);color:#fff;border-color:var(--ac)}button.done{border-color:var(--ac);font-weight:700}
+.tabs button{font-size:.85rem}
+label.ck{display:flex;gap:10px;align-items:flex-start;padding:5px 0}
+input[type=checkbox]{width:20px;height:20px;accent-color:var(--ac);flex:0 0 auto}
+input[type=text],input[type=number],textarea,select{width:100%;box-sizing:border-box;padding:9px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx);font:inherit;margin:4px 0}
+textarea{min-height:60px;resize:vertical}
+.q{font-style:italic;border-left:3px solid var(--ac);padding-left:10px;margin:8px 0}.big{font-size:1.1rem}
+.mu{color:var(--mu);font-size:.85rem;margin:6px 0 2px}
+.g{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.g label{font-size:.8rem;color:var(--mu)}
+.wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:.85rem}td,th{padding:4px;text-align:left}
+.b{background:var(--ac2);border-radius:4px;height:14px;position:relative;min-width:40px}.b i{position:absolute;left:0;top:0;bottom:0;background:var(--ac);border-radius:4px}
+.it{display:flex;justify-content:space-between;gap:8px;align-items:center;border-top:1px solid var(--bd);padding:6px 0}
+</style></head><body><main>
+<h1>🌿 Mon espace — 15 jours</h1>
+<div class="bar"><i id="pb" style="width:0"></i></div><p class="mu" id="pt"></p>
+<div class="row tabs" id="tabs"></div><div class="row" id="days"></div><div id="v"></div>
+</main><script>
+var K='routine15v2',S={};try{S=JSON.parse(localStorage.getItem(K)||'{}')}catch(e){S={}}
+S.d=S.d||{};S.w=S.w||{};S.c=S.c||[];S.b=S.b||[];S.cur=S.cur||1;S.tab=S.tab||0;S.fin=S.fin||'';
+function save(){try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}}
+var T=['🌞 Aujourd\'hui','📣 Prospection','⏱️ Journée','🌙 Soir','📈 Évolution','🌿 Mindset'];
+var M=[['🌱','Le prochain pas','Je n’ai pas besoin de savoir où j’arriverai. J’ai seulement besoin d’oser le prochain pas.'],['🔥','Le courage','Je peux avoir peur et avancer quand même. Ma peur ne décide pas à ma place.'],['📣','La prospection','Je ne cherche pas à convaincre. Je cherche à rencontrer, à échanger et à aider.'],['💛','Ma valeur','La réponse des autres ne définit jamais ma valeur. Je connais ce que j’ai à offrir.'],['🌸','La confiance','Je n’ai pas besoin d’être parfaitement prête pour commencer. Je grandis en faisant.'],['🦋','Le lâcher-prise','Je fais ma part aujourd’hui et je laisse le reste venir à son rythme.'],['🚀','Mon entreprise','Je ne suis pas en train de prouver que je peux réussir. Je suis en train de construire quelque chose qui me ressemble.'],['🧠','Le mental','Tout n’est pas urgent. Tout n’a pas besoin d’être résolu aujourd’hui.'],['❤️','La comparaison','Je ne compare pas mon chapitre 1 au chapitre 20 de quelqu’un d’autre. J’avance à mon rythme.'],['💪','L\'action','Une petite action aujourd’hui vaut mieux que mille pensées qui tournent dans ma tête.'],['🌿','La nouvelle vie','Je peux quitter ce qui ne me correspond plus sans avoir peur de ce que je vais devenir.'],['✨','La reconnaissance','Je n’ai plus besoin que mon ancienne vie reconnaisse ma valeur. Je choisis maintenant de la reconnaître moi-même.'],['💰','La réussite','Je peux vouloir réussir sans me mettre la pression de réussir immédiatement.'],['🕊️','La paix','Je n’ai pas besoin de tout contrôler pour être en sécurité. Je peux avancer, respirer et faire confiance au chemin.'],['👑','Moi','Je suis capable de créer une vie qui me ressemble. Je n’ai pas besoin d’être une autre personne. J’ai simplement besoin d’oser être pleinement moi.']];
+var BONUS=['Je ne dérange pas. Je crée une opportunité de rencontre.','Une absence de réponse n’est pas un rejet de ma valeur.','Je peux avoir peur et avancer quand même.','Je construis, je ne prouve rien.','Action → détachement → action.'];
+var EMO=['😰 Stress','😔 Tristesse','😡 Colère','😌 Calme','😍 Joie','💪 Motivation','🤯 Surcharge'],FEEL=['calme','confiante','fière','légère','déterminée','sereine'];
+var ST=['📨 Contacté','💬 Discussion','📞 Appel proposé','📅 Appel programmé','🤝 Cliente','❌ Pas intéressée','⏳ À relancer'];
+var TM=[['tc','🟣 Création / contenu'],['tp','🔵 Prospection'],['tk','🟢 Clientes'],['ta','🟠 Administratif'],['tl','⚪ Temps perdu / réseaux'],['tv','❤️ Personnel']];
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;')}
+function g(n,k){return(S.d[n]||{})[k]}
+function ck(n,k,t){return '<label class="ck"><input type="checkbox" data-n="'+n+'" data-k="'+k+'"'+(g(n,k)?' checked':'')+'><span>'+t+'</span></label>'}
+function tx(n,k,ph,a){var v=esc(g(n,k));return a?'<textarea data-n="'+n+'" data-t="'+k+'" placeholder="'+ph+'">'+v+'</textarea>':'<input type="text" data-n="'+n+'" data-t="'+k+'" placeholder="'+ph+'" value="'+v+'">'}
+function nb(n,k,l){return '<div><label>'+l+'</label><input type="number" min="0" inputmode="numeric" data-n="'+n+'" data-t="'+k+'" value="'+esc(g(n,k))+'"></div>'}
+function rate(n,k,lab){return '<div class="row">'+lab.map(function(x,i){return '<button data-r="'+(i+1)+'" data-n="'+n+'" data-k="'+k+'" class="'+(g(n,k)==i+1?'on':'')+'">'+x+'</button>'}).join('')+'</div>'}
+function opts(n,k,l){return '<div class="row wr">'+l.map(function(x){return '<button data-o="'+esc(x)+'" data-n="'+n+'" data-k="'+k+'" class="'+(g(n,k)==x?'on':'')+'">'+x+'</button>'}).join('')+'</div>'}
+function full(n){return g(n,'m1')&&g(n,'j5')&&g(n,'s2')}
+function H(t){return '<div class="mu">'+t+'</div>'}
+function V0(n){var m=M[n-1];return '<div class="card"><div class="mu">Jour '+n+' — '+m[1]+'</div><p class="q big">'+m[0]+' '+m[2]+'</p>'+ck(n,'m3','Mantra lu')+'<p class="mu">Aujourd\'hui, quel est mon prochain pas ?</p></div>'+
+'<div class="card"><h2>Comment je vais</h2>'+H('Mon énergie')+rate(n,'en',['😴','😐','🙂','😊','🔥'])+H('Mon émotion dominante')+opts(n,'emo',EMO)+H('Aujourd\'hui, je veux me sentir…')+opts(n,'feel',FEEL)+'</div>'+
+'<div class="card"><h2>☀️ Matin — je choisis ma journée</h2>'+ck(n,'m1','Pas de téléphone pendant 20 min')+H('Ce matin, dans ma tête, il y a…')+tx(n,'mt','Écrire librement',1)+H('Mes 3 priorités')+tx(n,'p1','1. Business')+tx(n,'p2','2. Prospection')+tx(n,'p3','3. Personnel')+H('❤️ Aujourd\'hui, je me promets de…')+tx(n,'pr','Ex. : faire les choses même imparfaitement')+'</div>'}
+function V1(n){var C=S.c,cnt=function(a){return C.filter(function(c){return a.indexOf(c.s)>-1}).length},t=C.length;
+var pc=function(a,b){return b?Math.round(a/b*100)+'%':'–'};
+var conv=cnt([1,2,3,4]),calls=cnt([2,3,4]),cl=cnt([4]);
+var h='<div class="card"><p class="q">Je ne cherche pas à convaincre. Je cherche à rencontrer.<br>Action → détachement → action.</p></div><div class="card"><h2>📊 Mon action du jour</h2><div class="g">'+nb(n,'ob','🎯 Objectif : contacter')+nb(n,'c1','Personnes contactées')+nb(n,'c2','Réponses')+nb(n,'c3','Conversations engagées')+nb(n,'c4','Appels proposés')+nb(n,'c5','Appels obtenus')+nb(n,'c6','Refus')+nb(n,'c7','Pas de réponse')+'</div><p class="mu">On mesure l’action, pas seulement le résultat.</p></div>'+
+'<div class="card"><h2>🧠 Ce que j’ai appris</h2>'+H('Accroche qui a fonctionné / question posée / objection')+tx(n,'l1','',1)+H('Ce qui m’a mise mal à l’aise / ce que j’aurais pu dire autrement')+tx(n,'l2','',1)+H('Ce que je teste demain')+tx(n,'l3','')+H('🏆 Ma victoire en prospection (même avec zéro cliente)')+tx(n,'vic','Ex. : j’ai envoyé 5 messages alors que j’avais peur')+'</div>'+
+'<div class="card"><h2>💬 Journal de prospection</h2><input type="text" id="cn" placeholder="Prénom / entreprise"><div class="g"><select id="cc"><option>Instagram</option><option>Facebook</option><option>LinkedIn</option><option>Autre</option></select><input type="date" id="cd"></div><input type="text" id="cm" placeholder="Message envoyé"><input type="text" id="cx" placeholder="Prochaine action (ex. relancer le 3 octobre)"><button data-add="1">+ Ajouter ce contact</button>'+
+C.map(function(c,i){return '<div class="it"><div><b>'+esc(c.n)+'</b> <span class="mu">'+esc(c.c)+' · '+esc(c.d)+'</span><br><span class="mu">'+esc(c.x)+'</span></div><div><select data-st="'+i+'">'+ST.map(function(s,j){return '<option value="'+j+'"'+(c.s==j?' selected':'')+'>'+s+'</option>'}).join('')+'</select><button data-del="'+i+'">✕</button></div></div>'}).join('')+
+'<p class="mu">Sur '+t+' contacts : '+conv+' conversations ('+pc(conv,t)+'), '+calls+' appels proposés ou plus ('+pc(calls,conv)+' des conversations), '+cl+' clientes ('+pc(cl,calls)+' des appels). Calculé d’après les statuts.</p></div>';return h}
+function V2(n){var s=0;TM.forEach(function(x){s+=+g(n,x[0])||0});var ca=(+g(n,'tp')||0)+(+g(n,'tk')||0);
+return '<div class="card"><h2>⏱️ Temps par activité (minutes)</h2><div class="g">'+TM.map(function(x){return nb(n,x[0],x[1])}).join('')+'</div><p class="mu">Total : '+s+' min · 💰 Temps pouvant générer du CA (prospection + clientes) : <b>'+ca+' min</b></p></div>'+
+'<div class="card"><h2>💻 Ma journée</h2>'+ck(n,'j4','20–30 min de marche, sans podcast')+ck(n,'j5','« J’ai fait ma part aujourd’hui. » Je m’arrête.')+'</div>'+
+'<div class="card"><h2>🧠 J’ai besoin de vider ma tête</h2><input type="text" id="bt" placeholder="Écris, sans classer"><button data-badd="1">+ Noter</button>'+
+S.b.map(function(b,i){return '<div class="it"><span>'+esc(b.t)+'</span><span><button data-bk="'+i+'" class="'+(b.k=='a'?'on':'')+'">📋 À faire</button><button data-bl="'+i+'" class="'+(b.k=='l'?'on':'')+'">🧠 À laisser</button><button data-bd="'+i+'">✕</button></span></div>'}).join('')+'<p class="mu">Est-ce une action ? Oui → À faire. Non → À laisser.</p></div>'}
+function V3(n){var w=Math.floor((n-1)/7)+1,sw=S.w[w]||{};
+return '<div class="card"><h2>🌙 Soir — je ferme ma journée</h2>'+ck(n,'s1','Téléphone posé 30 min avant de dormir')+H('✨ Aujourd’hui, je suis fière de…')+tx(n,'f1','Même minuscule')+H('✅ Ce que j’ai accompli (pas que le pro)')+tx(n,'f2','',1)+H('🧠 Ce qui m’a pris de l’énergie')+tx(n,'f3','')+H('❤️ Ce qui m’en a donné')+tx(n,'f4','')+H('🔄 Demain, je pourrais améliorer (une seule chose)')+tx(n,'f5','')+H('📝 Je vide ma tête / ce que je laisse pour demain')+tx(n,'f6','',1)+ck(n,'s2','Carnet fermé. Ma journée est terminée.')+'</div>'+
+'<div class="card"><h2>Mon état ce soir</h2>'+H('Stress (1 faible → 5 fort)')+rate(n,'st',['1','2','3','4','5'])+H('Confiance')+rate(n,'cf',['1','2','3','4','5'])+H('Humeur')+rate(n,'hu',['😞','😕','😐','🙂','😄'])+
+'<p class="q">Pas de culpabilisation. Si je n’ai pas prospecté : qu’est-ce qui m’en a empêchée ? Quel petit changement m’aidera demain ?</p>'+tx(n,'nc','Ce qui m’a empêchée / le petit changement')+'</div>'+
+'<div class="card"><h2>🫶 Cette semaine (semaine '+w+')</h2><label class="ck"><input type="checkbox" data-w="'+w+'" data-k="l"'+(sw.l?' checked':'')+'><span>Lettre à la personne qui m’a blessée</span></label><label class="ck"><input type="checkbox" data-w="'+w+'" data-k="p"'+(sw.p?' checked':'')+'><span>Une demi-journée sans business</span></label></div>'}
+function V4(){var r='';for(var i=1;i<=15;i++){var row='<tr><td>J'+i+'</td>';[['en',5],['st',5],['cf',5],['hu',5],['c1',+g(i,'ob')||10]].forEach(function(x){var v=+g(i,x[0]);row+='<td><div class="b"><i style="width:'+(v?Math.min(100,v/x[1]*100):0)+'%"></i></div>'+(v?' '+v:'')+'</td>'});r+=row+'</tr>'}
+return '<div class="card"><h2>📈 Mon évolution</h2><div class="wrap"><table><tr><th></th><th>❤️ Énergie</th><th>🧠 Stress</th><th>🔥 Confiance</th><th>😊 Humeur</th><th>📣 Contacts</th></tr>'+r+'</table></div></div><div class="card"><h2>Au bout de 15 jours</h2>'+H('Qu’est-ce qui a changé chez moi ?')+'<textarea id="fin">'+esc(S.fin)+'</textarea></div>'}
+function V5(){return '<div class="card"><h2>🌿 Mes 15 mantras</h2>'+M.map(function(m,i){return '<p><b>'+m[0]+' Jour '+(i+1)+' — '+m[1]+'</b><br>'+m[2]+'</p>'}).join('')+'</div><div class="card"><h2>Phrases bonus</h2>'+BONUS.map(function(b){return '<p class="q">'+b+'</p>'}).join('')+'</div>'}
+function render(){var c=0,i;for(i=1;i<=15;i++)if(full(i))c++;
+document.getElementById('pb').style.width=(c/15*100)+'%';document.getElementById('pt').textContent=c+' jour(s) complet(s) — matin sans téléphone, « j’ai fait ma part » et journée fermée';
+document.getElementById('tabs').innerHTML=T.map(function(t,j){return '<button data-tab="'+j+'" class="'+(j==S.tab?'on':'')+'">'+t+'</button>'}).join('');
+var d='';if(S.tab<4)for(i=1;i<=15;i++)d+='<button data-go="'+i+'" class="'+(i==S.cur?'on ':'')+(full(i)?'done':'')+'">'+(full(i)?'✓':i)+'</button>';
+document.getElementById('days').innerHTML=d;
+document.getElementById('v').innerHTML=[V0,V1,V2,V3,V4,V5][S.tab](S.cur)}
+function sd(n){S.d[n]=S.d[n]||{};return S.d[n]}
+document.addEventListener('change',function(e){var t=e.target,D=t.dataset;
+if(D.n&&D.k){sd(D.n)[D.k]=t.checked}else if(D.w){S.w[D.w]=S.w[D.w]||{};S.w[D.w][D.k]=t.checked}else if(D.st!=null){S.c[D.st].s=+t.value}else return;save();render()});
+document.addEventListener('input',function(e){var t=e.target,D=t.dataset;if(D.n&&D.t){sd(D.n)[D.t]=t.value;save()}else if(t.id=='fin'){S.fin=t.value;save()}});
+document.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var D=b.dataset,v=function(id){return document.getElementById(id).value};
+if(D.tab!=null)S.tab=+D.tab;else if(D.go)S.cur=+D.go;
+else if(D.r){var o=sd(D.n);o[D.k]=o[D.k]==D.r?'':+D.r}
+else if(D.o){var o2=sd(D.n);o2[D.k]=o2[D.k]==D.o?'':D.o}
+else if(D.add){if(!v('cn'))return;S.c.unshift({n:v('cn'),c:v('cc'),d:v('cd'),m:v('cm'),x:v('cx'),s:0})}
+else if(D.del!=null)S.c.splice(D.del,1);
+else if(D.badd){if(!v('bt'))return;S.b.unshift({t:v('bt'),k:''})}
+else if(D.bk!=null)S.b[D.bk].k='a';else if(D.bl!=null)S.b[D.bl].k='l';else if(D.bd!=null)S.b.splice(D.bd,1);
+else return;save();render()});
+render();
+</script></body></html>
